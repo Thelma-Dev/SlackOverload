@@ -6,9 +6,9 @@ namespace SlackOverload.Models
     {
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
 
         public int AnswerId { get; set; }
         public Answer Answer { get; set; }
