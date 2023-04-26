@@ -71,6 +71,11 @@ namespace SlackOverload.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required(AllowEmptyStrings = false)]
+            [StringLength(150, ErrorMessage = "Display Name must be between 2 and 150 characters")]
+            [Display(Name = "Display Name")]
+            public string DisplayName { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -115,6 +120,7 @@ namespace SlackOverload.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                user.DisplayName = Input.DisplayName;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
