@@ -8,6 +8,11 @@
 
         public virtual HashSet<QuestionTag> QuestionTags { get; set; } = new HashSet<QuestionTag>();
 
+        public Tags(string tagName)
+        {
+            TagName = tagName;
+        }
+
         public Tags() { }
     }
 }

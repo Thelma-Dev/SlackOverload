@@ -10,7 +10,7 @@
 
         public int TagId { get; set; }
 
-        public Tags Tags { get; set; }
+        public Tags Tag { get; set; }
 
         public QuestionTag() { }
     }

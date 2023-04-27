@@ -69,7 +69,7 @@ public class SlackContext : IdentityDbContext<ApplicationUser>
 
         modelBuilder.Entity<Tags>()
             .HasMany(t => t.QuestionTags)
-            .WithOne(t => t.Tags)
+            .WithOne(t => t.Tag)
             .HasForeignKey(t => t.TagId);
     }
 

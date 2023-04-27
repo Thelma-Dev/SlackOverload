@@ -16,3 +16,69 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.question-block {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
+
+.answer-block {
+    width: 100%;
+    height: auto;
+    padding: 15px 10px;
+    background-color: #f0f2f4;
+    border-radius: 5px;
+    border: none;
+}
+
+.tags {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.tag {
+    border: none;
+    border-radius: 5px;
+    padding: 3px 5px;
+    height: 30px;
+    width:auto;
+    margin-right:10px;
+    font-size: 15px;
+    background-color: bisque;
+}
+
+.comment-link {
+    margin-top: 20px;
+    background-color: #1a1d28;
+    width: 95px;
+    padding: 4px 10px;
+    border-radius: 25px;
+
+}
+
+.comment-link a {
+    color: #ffff;
+    text-decoration: none;
+}
+
+.question-description, .answer-description {
+    border: 1px solid #0000;
+    padding: 8px 0px;
+}
+
+.dateposted {
+    color: #808080;
+    font-size: 15px;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.answer {
+    margin-top: 2rem;
+}
+
+.user {
+    margin-top: 1rem;
+}

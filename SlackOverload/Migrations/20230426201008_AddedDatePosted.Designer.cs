@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SlackOverload.Data;
 
@@ -11,9 +12,11 @@ using SlackOverload.Data;
 namespace SlackOverload.Migrations
 {
     [DbContext(typeof(SlackContext))]
-    partial class SlackContextModelSnapshot : ModelSnapshot
+    [Migration("20230426201008_AddedDatePosted")]
+    partial class AddedDatePosted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,7 +263,7 @@ namespace SlackOverload.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answer", (string)null);
+                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("SlackOverload.Models.AnswerComment", b =>
@@ -285,7 +288,7 @@ namespace SlackOverload.Migrations
 
                     b.HasIndex("AnswerId");
 
-                    b.ToTable("AnswerComment", (string)null);
+                    b.ToTable("AnswerComment");
                 });
 
             modelBuilder.Entity("SlackOverload.Models.AnswerVote", b =>
@@ -312,7 +315,7 @@ namespace SlackOverload.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("AnswerVote", (string)null);
+                    b.ToTable("AnswerVote");
                 });
 
             modelBuilder.Entity("SlackOverload.Models.Question", b =>
@@ -342,7 +345,7 @@ namespace SlackOverload.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Question", (string)null);
+                    b.ToTable("Question");
                 });
 
             modelBuilder.Entity("SlackOverload.Models.QuestionComment", b =>
@@ -367,7 +370,7 @@ namespace SlackOverload.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("QuestionComment", (string)null);
+                    b.ToTable("QuestionComment");
                 });
 
             modelBuilder.Entity("SlackOverload.Models.QuestionTag", b =>
@@ -390,7 +393,7 @@ namespace SlackOverload.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("QuestionTag", (string)null);
+                    b.ToTable("QuestionTag");
                 });
 
             modelBuilder.Entity("SlackOverload.Models.QuestionVote", b =>
@@ -417,7 +420,7 @@ namespace SlackOverload.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("QuestionVote", (string)null);
+                    b.ToTable("QuestionVote");
                 });
 
             modelBuilder.Entity("SlackOverload.Models.Tags", b =>
@@ -434,7 +437,7 @@ namespace SlackOverload.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

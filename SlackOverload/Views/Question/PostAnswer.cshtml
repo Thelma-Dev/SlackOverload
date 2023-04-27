@@ -1,0 +1,36 @@
+﻿@model SlackOverload.Models.ViewModel.PostAnswerVm
+
+@{
+    ViewData["Title"] = "PostAnswer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>PostAnswer</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PostAnswer" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="QuestionId" value="@ViewBag.QuestionId" type="hidden"/>
+            </div>
+            <div class="form-group mt-4">
+                <label asp-for="QuestionAnswer" class="control-label"></label>
+                <input asp-for="QuestionAnswer" class="form-control" />
+                <span asp-validation-for="QuestionAnswer" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Post" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index">Back to Questions</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

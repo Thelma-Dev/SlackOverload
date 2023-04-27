@@ -9,7 +9,7 @@ namespace SlackOverload.Models
 
         public int QuestionId { get; set; }
 
-        public Question? Question { get; set; }
+        public virtual Question? Question { get; set; }
 
         [Required(AllowEmptyStrings =false)]
         [Display(Name ="Answer")]
@@ -17,7 +17,9 @@ namespace SlackOverload.Models
 
         public string ApplicationUserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
+
+        public DateTime DatePosted { get; set; }
 
         public virtual HashSet<AnswerComment> AnswerComments { get; set; } = new HashSet<AnswerComment>();
 

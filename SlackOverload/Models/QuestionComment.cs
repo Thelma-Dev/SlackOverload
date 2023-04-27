@@ -13,6 +13,8 @@ namespace SlackOverload.Models
         [Required(AllowEmptyStrings =false)]
         public string Comment { get; set; }
 
+        public DateTime DatePosted { get; set; }
+
         public QuestionComment(Question question, string comment)
         {
             Question = question;

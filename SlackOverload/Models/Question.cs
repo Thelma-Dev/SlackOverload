@@ -1,4 +1,5 @@
 ﻿using SlackOverload.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace SlackOverload.Models
 {
@@ -10,9 +11,14 @@ namespace SlackOverload.Models
 
         public string Description { get; set; }
 
+        [Display(Name ="User")]
         public string ApplicationUserId { get; set; }
 
+        [Display(Name = "User")]
         public ApplicationUser ApplicationUser { get; set; }
+
+        [Display(Name ="Date Posted")]
+        public DateTime DatePosted { get; set; }
 
         public virtual HashSet<Answer> Answers { get; set; } = new HashSet<Answer>();
 
