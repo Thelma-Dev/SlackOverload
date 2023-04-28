@@ -51,13 +51,13 @@
     <p>No questions available</p>
 
     <p>
-        <a asp-action="Create" asp-controller="Question">Ask Question</a>
+        <a asp-action="Create" asp-controller="Question" class="ask-link">Ask Question</a>
     </p>
 }
 else
 {
     <p class="mt-2">
-        <a asp-action="Create" asp-controller="Question">Ask Question</a>
+        <a asp-action="Create" asp-controller="Question" class="ask-link">Ask Question</a>
     </p>
 
 <div class="mt-4">
@@ -97,8 +97,7 @@ else
                 </td>
                 <td>
                     <a asp-action="PostAnswer" asp-route-id="@item.Id" asp-controller="Question">Post Answer</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                 </td>
             </tr>
             }

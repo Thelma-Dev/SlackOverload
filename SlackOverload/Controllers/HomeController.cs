@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SlackOverload.Areas.Identity.Data;
 using SlackOverload.Data;
 using SlackOverload.Models;
 using SlackOverload.Models.ViewModel;
@@ -21,7 +22,7 @@ namespace SlackOverload.Controllers
 
         public IActionResult Index(int page, SortMethodVm.QuestionSortMethod? questionSortMethod = null)
         {
-
+            
             HashSet<Question> allquestions = _context.Question
                            .Include(q => q.Answers)
                            .Include(q => q.QuestionTags)
@@ -68,7 +69,7 @@ namespace SlackOverload.Controllers
                     .Skip((page - 1) * 5).Take(5)
                     .OrderBy(q => q.Answers.Count).ToHashSet();
             }
-            
+
             
             return View(newVm);
         }

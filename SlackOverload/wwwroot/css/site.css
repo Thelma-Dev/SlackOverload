@@ -38,10 +38,10 @@ body {
     flex-direction: row;
 }
 
-.tag {
+.tag-button {
     border: none;
     border-radius: 5px;
-    padding: 3px 5px;
+    padding: 3px 10px;
     height: 30px;
     width:auto;
     margin-right:10px;
@@ -53,15 +53,28 @@ body {
     margin-top: 20px;
     background-color: #1a1d28;
     width: 95px;
+    height: 36px;
     padding: 4px 10px;
-    border-radius: 25px;
+    border-radius: 5px;
 
+}
+
+.ask-link {
+    margin-top: 20px;
+    background-color: #1a1d28;
+    width: 95px;
+    height: 36px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    color: #ffff;
+    text-decoration: none;
 }
 
 .comment-link a {
     color: #ffff;
     text-decoration: none;
 }
+
 
 .question-description, .answer-description {
     border: 1px solid #0000;
@@ -81,4 +94,10 @@ body {
 
 .user {
     margin-top: 1rem;
+}
+
+#reputation {
+    border: 1px solid #808080;
+    color: #000;
+    width: 46px;
 }

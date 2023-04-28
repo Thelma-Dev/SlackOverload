@@ -7,8 +7,12 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    ApplicationUser user = UserManager.Users.Where(u => u.UserName == UserManager.GetUserName(User)).First();
     <li class="nav-item">
         <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    </li>
+    <li class="nav-item">
+         <button id="reputation" class="nav-link btn btn-link text-dark">@user.Reputation</button> 
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
