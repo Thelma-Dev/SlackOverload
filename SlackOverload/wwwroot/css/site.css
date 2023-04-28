@@ -101,3 +101,49 @@ body {
     color: #000;
     width: 46px;
 }
+
+.icons {
+    display: flex;
+    flex-direction: column;
+    width: 45px;
+    gap: 4px;
+}
+
+.icon {
+    margin-inline: auto;
+    border: 1px solid #808080;
+    width: 35px;
+    height: 25px;
+    padding: 1px 8px;
+}
+
+.down-icon {
+    padding:0px 8px 4px;
+}
+
+.icons i {
+    font-size: 25px;
+    color: darkblue;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #000058;
+    color: white;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}

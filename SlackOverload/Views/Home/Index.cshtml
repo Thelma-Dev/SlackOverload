@@ -31,7 +31,7 @@
 
                     if (TotalPage > 0)
                     {
-                        <label style="text-align:center">Pages</label>
+                        <label>Pages</label>
                     }
 
                     for (int i = 1; i <= TotalPage; i++)
@@ -64,6 +64,7 @@ else
     <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                  Title
             </th>
@@ -84,6 +85,12 @@ else
             {
             <tr>
                 <td>
+                    <div class="icons">
+                        <a asp-action="UpVote" asp-route-id="@item.Id" asp-controller="Question" class="icon up-icon"><i class="fa-solid fa-caret-up"></i></a> 
+                        <a asp-action="Downvote" asp-route-id="@item.Id" asp-controller="Question" class=" icon down-icon"><i class="fa-solid fa-caret-down"></i></a>
+                    </div>
+                </td>
+                <td>
                         @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
@@ -97,7 +104,7 @@ else
                 </td>
                 <td>
                     <a asp-action="PostAnswer" asp-route-id="@item.Id" asp-controller="Question">Post Answer</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>                    
                 </td>
             </tr>
             }
