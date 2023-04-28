@@ -1,0 +1,50 @@
+﻿@model SlackOverload.Models.Question
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-2 question-block">
+    <h1>@Model.Title</h1>
+    <p class="dateposted">Asked @Model.DatePosted</p>
+    <hr />
+    <div class="question-description">
+       <p>@Model.Description</p>
+    </div>
+    <div class="tags">
+        @foreach (QuestionTag qt in Model.QuestionTags)
+        {
+                <div class="tag">
+                @qt.Tag.TagName
+                </div>
+        }
+    </div>
+    <div class="comment-link"><a asp-action="Comment">Comment</a></div>
+</div>
+
+
+<div class="answer">
+    <h4>Answers</h4>
+    <hr />
+
+    @foreach (Answer a in Model.Answers)
+    {
+            <div class="mt-4 answer-block">
+                <p class="dateposted">Answered @a.DatePosted</p>
+                <hr />
+                <div class="answer-description">
+                   <p>@a.QuestionAnswer</p>
+                </div>
+                <div class="user">
+                     <p>Answered By @a.ApplicationUser.DisplayName </p> 
+                </div>
+                <div class="comment-link"><a asp-action="Comment">Comment</a></div>
+            </div>
+    }
+</div>
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to Questions</a>
+</div>
+

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SlackOverload.Models.Question>
+﻿@model SlackOverload.Models.ViewModel.SortMethodVm
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,18 +10,54 @@
 
 <div class="mt-2"><h1>All Questions</h1></div>
 
-@if(!Model.Any())
+<div>
+    <form asp-action="Index" method="post">
+        <div class="flex flex-row justify-content-between" style="display:flex;width:100%;">
+
+            <div class="dropdown-menu-md-end" style="margin-top:25px">
+                 <select asp-for="SortMethod"
+                        asp-items="Html.GetEnumSelectList<SlackOverload.Models.ViewModel.SortMethodVm.QuestionSortMethod>()"
+                        style="border-radius: 5px; width:200px; height: 46px; padding: 5px" onchange="document.getElementById('SubmitButton').click()">
+                </select>
+
+                <input id="SubmitButton" hidden type="submit" value="Submit" />
+                
+            </div>
+
+            
+            <div class="pagination" style="width:30%; height:10%;margin-top:16px;">
+                @{
+                    double TotalPage = ViewBag.Questions;
+
+                    if (TotalPage > 0)
+                    {
+                        <label style="text-align:center">Pages</label>
+                    }
+
+                    for (int i = 1; i <= TotalPage; i++)
+                    {
+                       <input asp-route-page="@i" type="submit" value="@i" style="background-color:#000058;color:#fff;width:50px;height:44px;border:none;border-radius:5px;padding:5px;margin-top:26px;margin-right:10px;" />
+                    }
+                }
+            </div>
+            
+
+        </div>
+    </form>
+</div>
+
+@if(!Model.Questions.Any())
 {
     <p>No questions available</p>
 
     <p>
-        <a asp-action="Create" asp-controller="Question">Create New</a>
+        <a asp-action="Create" asp-controller="Question">Ask Question</a>
     </p>
 }
 else
 {
-    <p>
-        <a asp-action="Create" asp-controller="Question">Create New</a>
+    <p class="mt-2">
+        <a asp-action="Create" asp-controller="Question">Ask Question</a>
     </p>
 
 <div class="mt-4">
@@ -29,22 +65,22 @@ else
     <thead>
         <tr>
             <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                 Title
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Answers)
+                 Answers
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.ApplicationUser)
+                 User
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.DatePosted)
+                 Date Posted
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-            @foreach (Question item in Model)
+            @foreach (Question item in Model.Questions)
             {
             <tr>
                 <td>

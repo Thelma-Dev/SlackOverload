@@ -171,5 +171,26 @@ namespace SlackOverload.Controllers
                 return BadRequest();
             }
         }
+
+        public IActionResult ViewAnswer(int id)
+        {
+            Question? question = _context.Question
+                .Include(q => q.Answers)
+                .ThenInclude(a => a.ApplicationUser)
+                .Include(q => q.QuestionTags)
+                .Include(q => q.ApplicationUser)
+                .Include(q => q.QuestionTags)
+                .ThenInclude(qt => qt.Tag)
+                .FirstOrDefault(q => q.Id == id);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(question);
+            }
+        }
     }
 }
