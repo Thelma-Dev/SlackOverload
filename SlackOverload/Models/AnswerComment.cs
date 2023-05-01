@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SlackOverload.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace SlackOverload.Models
 {
@@ -9,6 +10,10 @@ namespace SlackOverload.Models
         public int AnswerId { get; set; }
 
         public Answer Answer { get; set; }
+
+        public string ApplicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
 
 
         [Required(AllowEmptyStrings = false)]

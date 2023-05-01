@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SlackOverload.Areas.Identity.Data;
 using SlackOverload.Data;
 using SlackOverload.Models;
+using SlackOverload.Models.ViewModel;
 using System.Data;
 
 namespace SlackOverload.Controllers
@@ -200,6 +201,70 @@ namespace SlackOverload.Controllers
 
             }
             catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+        public IActionResult Comment(int id)
+        {
+            Answer selectedAnswer = _context.Answer.Find(id);
+
+            CommentOnAnswerVm vm = new CommentOnAnswerVm();
+
+
+            if (selectedAnswer == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+
+                ViewBag.AnswerId = selectedAnswer.Id;
+                vm.AnswerId = selectedAnswer.Id;
+
+                ViewBag.Answer = selectedAnswer.QuestionAnswer;
+                return View(vm);
+            }
+
+        }
+
+
+        [HttpPost]
+        public IActionResult Comment([Bind("AnswerId", "Comment")] CommentOnAnswerVm vm)
+        {
+            try
+            {
+                ApplicationUser user = _context.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+                Answer selectedAnswer = _context.Answer.Find(vm.AnswerId);
+
+                AnswerComment newAnswerComment = new AnswerComment();
+
+                newAnswerComment.Answer = selectedAnswer;
+                newAnswerComment.AnswerId = selectedAnswer.Id;
+                newAnswerComment.ApplicationUser = user;
+                newAnswerComment.ApplicationUserId = user.Id;
+                newAnswerComment.DatePosted = DateTime.Now;
+                newAnswerComment.Comment = vm.Comment;
+
+
+                if (ModelState.IsValid)
+                {
+                    _context.AnswerComment.Add(newAnswerComment);
+                    selectedAnswer.AnswerComments.Add(newAnswerComment);
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Details", "Home", new { id = selectedAnswer.QuestionId });
+                }
+                else
+                {
+                    return View(newAnswerComment);
+                }
+
+
+            }
+            catch (Exception exe)
             {
                 return BadRequest();
             }

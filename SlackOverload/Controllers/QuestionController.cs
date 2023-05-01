@@ -370,5 +370,70 @@ namespace SlackOverload.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public IActionResult Comment(int id)
+        {
+            Question selectedQuestion = _context.Question.First(q => q.Id == id);
+
+            CommentOnQuestionVm vm = new CommentOnQuestionVm();
+
+            
+            if (selectedQuestion == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+
+                ViewBag.QuestionId = selectedQuestion.Id;
+                vm.QuestionId = selectedQuestion.Id;
+
+                ViewBag.Question = selectedQuestion.Description;
+                return View(vm);
+            }
+            
+        }
+
+
+        [HttpPost]
+        public IActionResult Comment([Bind("QuestionId", "Comment")] CommentOnQuestionVm vm)
+        {
+            try
+            {
+                ApplicationUser user = _context.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+                Question selectedQuestion = _context.Question.Find(vm.QuestionId);
+
+                QuestionComment newQuestionComment = new QuestionComment();
+
+                newQuestionComment.Question = selectedQuestion;
+                newQuestionComment.QuestionId = selectedQuestion.Id;
+                newQuestionComment.ApplicationUser = user;
+                newQuestionComment.ApplicationUserId = user.Id;
+                newQuestionComment.DatePosted = DateTime.Now;
+                newQuestionComment.Comment = vm.Comment;
+
+
+                if (ModelState.IsValid)
+                {
+                    _context.QuestionComment.Add(newQuestionComment);
+                    selectedQuestion.QuestionComments.Add(newQuestionComment);
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Details", "Home", new { id = selectedQuestion.Id });
+                }
+                else
+                {
+                    return View(newQuestionComment);
+                }
+
+
+            }
+            catch (Exception exe)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

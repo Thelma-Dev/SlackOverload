@@ -20,37 +20,67 @@
             </div>
         }
     </div>
-    <div class="comment-link"><a asp-action="Comment">Comment</a></div>
+    <div class="comment-link"><a asp-action="Comment" asp-route-id="@Model.Id" asp-controller="Question">Comment</a></div>
+</div>
+
+<div class="comment-block mt-4">
+    @if(Model.QuestionComments.Count != 0)
+    {
+        @foreach (QuestionComment qc in Model.QuestionComments)
+        {
+           <div class="question-comment">
+               <p>@qc.ApplicationUser.DisplayName commented at @qc.DatePosted</p>
+               <hr/>
+               <p>@qc.Comment</p>
+           </div>
+        }
+    }
 </div>
 
 
-<div class="answer">
+<div class="answer mt-5">
     <h4>Answers</h4>
     <hr />
 
     @foreach(Answer a in Model.Answers)
     {
-        
-        <div class="mt-4 answer-block">
-            <div class="icons">
-                <a asp-action="UpVote" asp-route-id="@a.Id" asp-controller="Answer" class="icon up-icon"><i class="fa-solid fa-caret-up"></i></a> 
-                <a asp-action="Downvote" asp-route-id="@a.Id" asp-controller="Answer" class=" icon down-icon"><i class="fa-solid fa-caret-down"></i></a>
+        <div class="answer-template">
+            <div class="mt-4 answer-block">
+                <div class="icons">
+                    <a asp-action="UpVote" asp-route-id="@a.Id" asp-controller="Answer" class="icon up-icon"><i class="fa-solid fa-caret-up"></i></a> 
+                    <a asp-action="Downvote" asp-route-id="@a.Id" asp-controller="Answer" class=" icon down-icon"><i class="fa-solid fa-caret-down"></i></a>
+                </div>
+
+                <div class="answer-info">
+                    <p class="dateposted">Answered @a.DatePosted</p>
+                    <hr />
+                    <div class="answer-description">
+                        <p>@a.QuestionAnswer</p>
+                    </div>
+                    <div class="user">
+                            <p>Answered By @a.ApplicationUser.DisplayName </p> 
+                    </div>
+                    <div class="comment-link"><a asp-action="Comment" asp-route-id="@a.Id" asp-controller="Answer">Comment</a></div>
+                </div>
             </div>
 
-            <div class="answer-info">
-                <p class="dateposted">Answered @a.DatePosted</p>
-                <hr />
-                <div class="answer-description">
-                   <p>@a.QuestionAnswer</p>
-                </div>
-                <div class="user">
-                     <p>Answered By @a.ApplicationUser.DisplayName </p> 
-                </div>
-                <div class="comment-link"><a asp-action="Comment">Comment</a></div>
-            </div>
-
+            @if(a.AnswerComments.Count != 0)
+            {
+               <div class="comment-block">
+                    @foreach (AnswerComment ac in a.AnswerComments)
+                    {
+                       <div class="answer-comment">
+                           <p>@ac.ApplicationUser.DisplayName commented at @ac.DatePosted</p>
+                           <hr/>
+                           <p>@ac.Comment</p>
+                       </div>
+                    }
+               </div>
+            }
             
         </div>
+        
+        
     }
 </div>
 <div class="mt-4">

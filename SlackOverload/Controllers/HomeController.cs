@@ -78,9 +78,12 @@ namespace SlackOverload.Controllers
         {
             Question? question = _context.Question
                 .Include(q => q.Answers)
+                .ThenInclude(a => a.AnswerComments)
+                .Include(q => q.Answers)
                 .ThenInclude(a => a.ApplicationUser)
                 .Include(q => q.QuestionTags)
                 .Include(q => q.ApplicationUser)
+                .Include(q => q.QuestionComments)
                 .Include(q => q.QuestionTags)
                 .ThenInclude(qt => qt.Tag)
                 .FirstOrDefault(q => q.Id == id);

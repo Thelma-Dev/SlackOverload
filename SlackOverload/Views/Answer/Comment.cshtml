@@ -1,0 +1,44 @@
+﻿@model SlackOverload.Models.ViewModel.CommentOnAnswerVm
+
+@{
+    ViewData["Title"] = "Answer Comment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Answer Comment</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Comment" method="post" asp-controller="Answer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="AnswerId" value="@ViewBag.AnswerId" type="hidden"/>
+            </div>
+            <div class="display-answer">
+                <p>@ViewBag.Answer</p>
+            </div>
+            <div class="form-group mt-4">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Post" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" asp-controller="Home">Back to Home Page</a> |
+    <a asp-action="Index">View Personal Question</a> 
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
