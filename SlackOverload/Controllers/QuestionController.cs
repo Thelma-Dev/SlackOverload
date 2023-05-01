@@ -281,5 +281,94 @@ namespace SlackOverload.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public IActionResult DownVote(int id)
+        {
+            ApplicationUser user = _context.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+            Question selectedQuestion = _context.Question.Find(id);
+
+
+            if (selectedQuestion == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ViewBag.QuestionId = selectedQuestion.Id;
+
+                if (selectedQuestion.ApplicationUserId == user.Id)
+                {
+                    ViewBag.Message = "You cannot downvote your own questions";
+                    return View();
+                }
+                else
+                {
+
+                    return View(selectedQuestion);
+                }
+
+            }
+        }
+
+        [HttpPost]
+
+        public IActionResult DownVote(Question question)
+        {
+            try
+            {
+                ApplicationUser user = _context.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+                Question selectedQuestion = _context.Question
+                    .Include(q => q.ApplicationUser)
+                    .First(q => q.Id == question.Id);
+
+                QuestionVote? VotedQuestionToSwitch = _context.QuestionVote.Where(qv => qv.ApplicationUserId == user.Id && qv.QuestionId == selectedQuestion.Id && qv.UpVote == true).FirstOrDefault();
+
+                if (VotedQuestionToSwitch == null)
+                {
+                    QuestionVote newQuestionVote = new QuestionVote();
+
+                    newQuestionVote.Question = selectedQuestion;
+                    newQuestionVote.QuestionId = selectedQuestion.Id;
+                    newQuestionVote.ApplicationUser = user;
+                    newQuestionVote.ApplicationUserId = user.Id;
+                    newQuestionVote.UpVote = false;
+
+                    if (_context.QuestionVote.Any(qv => qv.ApplicationUserId == user.Id && qv.QuestionId == selectedQuestion.Id && qv.UpVote == newQuestionVote.UpVote))
+                    {
+                        ViewBag.Message = "You already downvoted this question";
+                        return View(selectedQuestion);
+                    }
+                    else
+                    {
+                        selectedQuestion.ApplicationUser.Reputation -= 5;
+                        _context.QuestionVote.Add(newQuestionVote);
+                        selectedQuestion.QuestionVotes.Add(newQuestionVote);
+                        _context.SaveChanges();
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    selectedQuestion.ApplicationUser.Reputation -= 5;
+                    VotedQuestionToSwitch.UpVote = false;
+                    _context.QuestionVote.Update(VotedQuestionToSwitch);
+
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

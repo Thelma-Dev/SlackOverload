@@ -16,7 +16,7 @@
         @foreach (QuestionTag qt in Model.QuestionTags)
         {
             <div class="tag">
-                 <button class="tag-button">@qt.Tag.TagName</button>
+                 <a asp-action="TagQuestions" asp-controller="Question" asp-route-id="@qt.Id" class="tag-button">@qt.Tag.TagName</a>
             </div>
         }
     </div>
@@ -30,16 +30,26 @@
 
     @foreach(Answer a in Model.Answers)
     {
+        
         <div class="mt-4 answer-block">
-            <p class="dateposted">Answered @a.DatePosted</p>
-            <hr />
-            <div class="answer-description">
-               <p>@a.QuestionAnswer</p>
+            <div class="icons">
+                <a asp-action="UpVote" asp-route-id="@a.Id" asp-controller="Answer" class="icon up-icon"><i class="fa-solid fa-caret-up"></i></a> 
+                <a asp-action="Downvote" asp-route-id="@a.Id" asp-controller="Answer" class=" icon down-icon"><i class="fa-solid fa-caret-down"></i></a>
             </div>
-            <div class="user">
-                 <p>Answered By @a.ApplicationUser.DisplayName </p> 
+
+            <div class="answer-info">
+                <p class="dateposted">Answered @a.DatePosted</p>
+                <hr />
+                <div class="answer-description">
+                   <p>@a.QuestionAnswer</p>
+                </div>
+                <div class="user">
+                     <p>Answered By @a.ApplicationUser.DisplayName </p> 
+                </div>
+                <div class="comment-link"><a asp-action="Comment">Comment</a></div>
             </div>
-            <div class="comment-link"><a asp-action="Comment">Comment</a></div>
+
+            
         </div>
     }
 </div>

@@ -1,0 +1,50 @@
+﻿@model SlackOverload.Models.Answer
+
+@{
+    ViewData["Title"] = "UpVote";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>UpVote Answer</h1>
+
+
+@if (Model == null)
+{
+    <p>@ViewBag.Message</p>
+}
+else
+{
+
+    <div class="mt-5">
+
+        <div class="mt-4">
+            <p class="dateposted">Answered @Model.DatePosted</p>
+            <hr />
+            <div class="answer-description">
+                <p>@Model.QuestionAnswer</p>
+            </div>
+            <div class="user">
+                  <p>Answered By @Model.ApplicationUser.DisplayName </p> 
+            </div>
+        </div>
+
+        <form action="UpVote" method="post">
+            <input asp-for="Id" type="hidden" value="@Model.Id"/>
+            <div class="form-group mt-4">
+                <input type="submit" value="UpVote" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <div class="mt-3 error">
+            <p>@ViewBag.Message</p>
+        </div>
+
+    </div>
+}
+
+
+
+<div class="mt-5">
+    <a asp-action="Index">View Personal Questions</a> | <a asp-action="Index" asp-controller="Home">Back To Home Page</a>
+</div>
+

@@ -30,6 +30,24 @@ body {
     background-color: #f0f2f4;
     border-radius: 5px;
     border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.answer-block .icons {
+    display: flex;
+    flex-direction: column;
+    width: 45px;
+    gap: 4px;
+    padding: 7px 0px;
+}
+
+.answer-block .answer-info{
+    width: 100%;
+    height: 100%;
+    padding: 0px 10px;
 }
 
 .tags {
@@ -38,11 +56,16 @@ body {
     flex-direction: row;
 }
 
+.tag a {
+    text-decoration: none;
+    color: #808080;
+}
+
 .tag-button {
     border: none;
     border-radius: 5px;
-    padding: 3px 10px;
-    height: 30px;
+    padding: 6px 10px;
+    height: 35px;
     width:auto;
     margin-right:10px;
     font-size: 15px;
@@ -50,7 +73,7 @@ body {
 }
 
 .comment-link {
-    margin-top: 20px;
+    margin-top: 3rem;
     background-color: #1a1d28;
     width: 95px;
     height: 36px;
@@ -61,13 +84,19 @@ body {
 
 .ask-link {
     margin-top: 20px;
-    background-color: #1a1d28;
+    background-color: #000058;
     width: 95px;
-    height: 36px;
-    padding: 4px 10px;
+    height: 48px;
+    padding: 10px 10px;
     border-radius: 5px;
     color: #ffff;
     text-decoration: none;
+}
+
+.ask-link:hover {
+    background-color: #020275;
+    color: #ffff;
+
 }
 
 .comment-link a {
@@ -123,7 +152,11 @@ body {
 
 .icons i {
     font-size: 25px;
-    color: darkblue;
+    color: #1a1d28;
+}
+
+.icons i:hover {
+    color: #020275
 }
 
 .table th {
@@ -143,7 +176,12 @@ table td, table th {
 table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
+/*
 table tr:hover {
     background-color: #ddd;
+}
+*/
+
+.error {
+    color: red;
 }
