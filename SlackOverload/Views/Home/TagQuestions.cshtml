@@ -1,0 +1,49 @@
+﻿@model SlackOverload.Models.Tags
+
+@{
+    ViewData["Title"] = "UpVote";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tag Related Questions</h1>
+
+<div class="mt-5">
+    <div class="mt-4">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                 Title
+            </th>
+            <th>
+                 User
+            </th>
+            <th>
+                 Date Posted
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (QuestionTag qt in Model.QuestionTags)
+        {
+
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => qt.Question.Title)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => qt.Question.ApplicationUser.DisplayName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => qt.Question.DatePosted)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+
+<div class="mt-5">
+    <a asp-action="Index" asp-controller="Home">Back To Home Page</a>
+</div>

@@ -95,7 +95,24 @@ namespace SlackOverload.Controllers
             }
         }
 
+        public IActionResult TagQuestions(int id)
+        {
+            Tags? tag = _context.Tags
+                .Include(t => t.QuestionTags)
+                .ThenInclude(qt => qt.Question)
+                .ThenInclude(q => q.ApplicationUser)
+                .Where(t => t.Id == id)
+                .FirstOrDefault();
 
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(tag);
+            }
+        }
 
         public IActionResult Privacy()
         {

@@ -16,7 +16,7 @@
         @foreach (QuestionTag qt in Model.QuestionTags)
         {
             <div class="tag">
-                 <a asp-action="TagQuestions" asp-controller="Question" asp-route-id="@qt.Id" class="tag-button">@qt.Tag.TagName</a>
+                 <a asp-action="TagQuestions" asp-controller="Home" asp-route-id="@qt.Tag.Id" class="tag-button">@qt.Tag.TagName</a>
             </div>
         }
     </div>
