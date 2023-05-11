@@ -269,5 +269,58 @@ namespace SlackOverload.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public IActionResult MarkAnswer(int id)
+        {
+
+            Answer selectedAnswer = _context.Answer
+                     .Include(a => a.ApplicationUser)
+                     .First(a => a.Id == id);
+
+
+            if (selectedAnswer == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ViewBag.AnswerId = selectedAnswer.Id;
+                return View(selectedAnswer);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult MarkAnswer(Answer answer)
+        {
+            Answer? selectedAnswer = _context.Answer
+                .Include(a => a.Question)
+                .Where(a => a.Id == answer.Id).FirstOrDefault();
+
+            if (selectedAnswer == null)
+            {
+                return BadRequest();
+            }
+            else if (_context.MarkedAnswer.Any(ma => ma.QuestionId == selectedAnswer.QuestionId))
+            {
+                ViewBag.Message = "This question already has a marked answer";
+                return View(selectedAnswer);
+            }
+            else
+            {
+                MarkedAnswers markedAnswer = new MarkedAnswers();
+
+                markedAnswer.AnswerId = selectedAnswer.Id;
+                markedAnswer.Answer = selectedAnswer;
+                markedAnswer.Question = selectedAnswer.Question;
+                markedAnswer.QuestionId = selectedAnswer.QuestionId;
+                markedAnswer.IsCorrect= true;
+
+                _context.MarkedAnswer.Add(markedAnswer);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("ViewAnswer", "Question", new {id = selectedAnswer.QuestionId});
+        }
     }
 }

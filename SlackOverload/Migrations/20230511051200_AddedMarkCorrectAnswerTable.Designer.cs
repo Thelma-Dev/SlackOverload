@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SlackOverload.Data;
 
@@ -11,9 +12,11 @@ using SlackOverload.Data;
 namespace SlackOverload.Migrations
 {
     [DbContext(typeof(SlackContext))]
-    partial class SlackContextModelSnapshot : ModelSnapshot
+    [Migration("20230511051200_AddedMarkCorrectAnswerTable")]
+    partial class AddedMarkCorrectAnswerTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

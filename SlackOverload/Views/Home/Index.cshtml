@@ -1,11 +1,15 @@
-﻿@model SlackOverload.Models.ViewModel.SortMethodVm
+﻿@using Microsoft.AspNetCore.Identity
+@using SlackOverload.Areas.Identity.Data
+@model SlackOverload.Models.ViewModel.SortMethodVm
+
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Slack Overload</h1>
 </div>
 
 <div class="mt-2"><h1>All Questions</h1></div>
@@ -56,9 +60,19 @@
 }
 else
 {
-    <p class="mt-2">
-        <a asp-action="Create" asp-controller="Question" class="ask-link">Ask Question</a>
-    </p>
+    <div class="question-actionlinks">
+        <p class="mt-2">
+            <a asp-action="Create" asp-controller="Question" class="ask-link">Ask Question</a>
+        </p>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <p class="mt-2">
+                <a asp-action="Index" asp-controller="Question" class="ask-link">Your Questions</a>
+            </p>
+        }
+    </div>
+    
 
 <div class="mt-4">
     <table class="table">

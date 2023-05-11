@@ -47,27 +47,31 @@ namespace SlackOverload.Controllers
             if (newVm.SortMethod.Equals(SortMethodVm.QuestionSortMethod.Latest))
             {
                 newVm.Questions = allquestions
+                    .OrderByDescending(q => q.DatePosted)
                     .Skip((page - 1) * 5).Take(5)
-                    .OrderByDescending(q => q.DatePosted).ToHashSet();
+                    .ToHashSet();
 
             }
             else if (newVm.SortMethod.Equals(SortMethodVm.QuestionSortMethod.Earliest))
             {
                 newVm.Questions = allquestions
+                    .OrderBy(q => q.DatePosted)
                     .Skip((page - 1) * 5).Take(5)
-                    .OrderBy(q => q.DatePosted).ToHashSet();
+                    .ToHashSet();
             }
             else if (newVm.SortMethod.Equals(SortMethodVm.QuestionSortMethod.MostAnswered))
             {
                 newVm.Questions = allquestions
+                    .OrderByDescending(q => q.Answers.Count)
                     .Skip((page - 1) * 5).Take(5)
-                    .OrderByDescending(q => q.Answers.Count).ToHashSet();
+                    .ToHashSet();
             }
             else if (newVm.SortMethod.Equals(SortMethodVm.QuestionSortMethod.LeastAnswered))
             {
                 newVm.Questions = allquestions
+                    .OrderBy(q => q.Answers.Count)
                     .Skip((page - 1) * 5).Take(5)
-                    .OrderBy(q => q.Answers.Count).ToHashSet();
+                    .ToHashSet();
             }
 
             
@@ -94,6 +98,14 @@ namespace SlackOverload.Controllers
             }
             else
             {
+                if (_context.MarkedAnswer.Any(ma => ma.QuestionId == question.Id))
+                {
+                    MarkedAnswers GetTheMarkedAnswer = _context.MarkedAnswer
+                        .Where(ma => ma.QuestionId == question.Id).First();
+
+                    Answer correctAnswer = _context.Answer.Find(GetTheMarkedAnswer.AnswerId);
+                    ViewBag.CorrectAnswer = correctAnswer.Id;
+                }
                 return View(question);
             }
         }

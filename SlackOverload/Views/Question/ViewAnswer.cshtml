@@ -1,4 +1,6 @@
-﻿@model SlackOverload.Models.Question
+﻿@using Microsoft.AspNetCore.Identity
+@using SlackOverload.Areas.Identity.Data
+@model SlackOverload.Models.Question
 
 @{
     ViewData["Title"] = "Details";
@@ -16,11 +18,25 @@
         @foreach (QuestionTag qt in Model.QuestionTags)
         {
                 <div class="tag">
-                @qt.Tag.TagName
+                     <a asp-action="TagQuestions" asp-controller="Home" asp-route-id="@qt.Tag.Id" class="tag-button">@qt.Tag.TagName</a>
                 </div>
         }
     </div>
-    <div class="comment-link"><a asp-action="Comment">Comment</a></div>
+    <div class="comment-link"><a asp-action="Comment" asp-route-id="@Model.Id" asp-controller="Question">Comment</a></div>
+</div>
+
+<div class="comment-block mt-4">
+    @if (Model.QuestionComments.Count != 0)
+    {
+        @foreach (QuestionComment qc in Model.QuestionComments)
+        {
+            <div class="question-comment">
+                <p>@qc.ApplicationUser.DisplayName commented at @qc.DatePosted</p>
+                <hr/>
+                <p>@qc.Comment</p>
+            </div>
+        }
+    }
 </div>
 
 
@@ -30,17 +46,28 @@
 
     @foreach (Answer a in Model.Answers)
     {
-            <div class="mt-4 answer-block">
-                <p class="dateposted">Answered @a.DatePosted</p>
-                <hr />
-                <div class="answer-description">
-                   <p>@a.QuestionAnswer</p>
-                </div>
-                <div class="user">
-                     <p>Answered By @a.ApplicationUser.DisplayName </p> 
-                </div>
-                <div class="comment-link"><a asp-action="Comment">Comment</a></div>
+        <div class="mt-4 questionAnswer-block">
+            <p class="questionAnswer-dateposted">Answered @a.DatePosted</p>
+            @if(ViewBag.CorrectAnswer == a.Id)
+            {
+               <p class="correct-icon"><i class="fa-solid fa-check"></i></p> 
+            }
+            <hr />
+            <div class="questionAnswer-description">
+                <p>@a.QuestionAnswer</p>
             </div>
+            <div class="questionAnswer-user">
+                    <p>Answered By @a.ApplicationUser.DisplayName </p> 
+            </div>
+            <div class="questionAnswer-links">
+                <div class="comment-link"><a asp-action="Comment" asp-route-id="@a.Id" asp-controller="Answer">Comment</a></div>
+
+                @if (@ViewBag.HasCorrectAnswer == null)
+                {
+                   <div class="markcorrectanswer-link"><a asp-action="MarkAnswer" asp-route-id="@a.Id" asp-controller="Answer">Mark As Correct</a></div>
+                }
+            </div>
+        </div>
     }
 </div>
 <div class="mt-4">

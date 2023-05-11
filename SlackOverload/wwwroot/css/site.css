@@ -107,14 +107,25 @@ body {
     background-color: bisque;
 }
 
-.comment-link {
+.questionAnswer-links{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+
+.comment-link, .markcorrectanswer-link {
     margin-top: 3rem;
     background-color: #1a1d28;
     width: 95px;
     height: 36px;
-    padding: 4px 10px;
+    padding: 5px 10px;
     border-radius: 5px;
+}
 
+.markcorrectanswer-link {
+    width: 145px;
+    padding: 5px 15px;
 }
 
 .ask-link {
@@ -134,7 +145,7 @@ body {
 
 }
 
-.comment-link a {
+.comment-link a, .markcorrectanswer-link a {
     color: #ffff;
     text-decoration: none;
 }
@@ -173,6 +184,11 @@ body {
     gap: 4px;
 }
 
+.icons .correct-icon{
+    margin-top: 5rem;
+    margin-inline: auto;
+}
+
 .icon {
     margin-inline: auto;
     border: 1px solid #808080;
@@ -185,9 +201,20 @@ body {
     padding:0px 8px 4px;
 }
 
-.icons i {
+.correct-icon{
+    border: 1px solid #808080a4;
+    width: 35px;
+    height: 35px;
+    padding: 5px 6px;
+}
+
+.icons i , .correct-icon i{
     font-size: 25px;
     color: #1a1d28;
+}
+
+.correct-icon i {
+    color: #09bb12;
 }
 
 .icons i:hover {
@@ -219,4 +246,26 @@ table tr:hover {
 
 .error {
     color: red;
+}
+
+.question-actionlinks{
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    padding: 8px 0px;
+}
+
+.question-actionlinks p + p{
+    margin-left: 20px;
+}
+
+.questionAnswer-block{
+    border: none;
+    padding: 10px;
+    background-color: #f0f2f4;
+    border-radius: 5px;
+}
+
+.questionAnswer-user {
+    margin-top: 25px;
 }

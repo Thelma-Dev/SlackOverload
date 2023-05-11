@@ -29,6 +29,8 @@ public class SlackContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<QuestionTag> QuestionTag { get; set; } = default!;
 
+    public DbSet<MarkedAnswers> MarkedAnswer { get; set; } = default!;
+
     private void _createSlackOverflowModel(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Question>()

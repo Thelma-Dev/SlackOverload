@@ -189,6 +189,16 @@ namespace SlackOverload.Controllers
             }
             else
             {
+                if (_context.MarkedAnswer.Any(ma => ma.QuestionId == question.Id))
+                {
+                     ViewBag.HasCorrectAnswer = true;
+
+                    MarkedAnswers GetTheMarkedAnswer = _context.MarkedAnswer
+                        .Where(ma => ma.QuestionId == question.Id).First();
+
+                    Answer correctAnswer = _context.Answer.Find(GetTheMarkedAnswer.AnswerId);
+                    ViewBag.CorrectAnswer = correctAnswer.Id;
+                }
                 return View(question);
             }
         }
