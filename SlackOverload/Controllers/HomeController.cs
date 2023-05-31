@@ -20,7 +20,7 @@ namespace SlackOverload.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int page, SortMethodVm.QuestionSortMethod? questionSortMethod = null)
+        public IActionResult Index(int page, SortMethodVm vm)
         {
             
             HashSet<Question> allquestions = _context.Question
@@ -30,17 +30,17 @@ namespace SlackOverload.Controllers
                            .Include(q => q.QuestionTags)
                            .ToHashSet();
 
-            if (questionSortMethod == null)
+            if (vm.SortMethod == null)
             {
-                questionSortMethod = SortMethodVm.QuestionSortMethod.Latest;
+                vm.SortMethod = SortMethodVm.QuestionSortMethod.Latest;
             }
 
             ViewBag.Questions = Math.Ceiling(allquestions.Count() / 5.0);
 
-            SortMethodVm newVm = new SortMethodVm(allquestions, questionSortMethod.Value);
+            SortMethodVm newVm = new SortMethodVm(allquestions, vm.SortMethod.Value);
             
             newVm.Questions = allquestions;
-            newVm.SortMethod = questionSortMethod;
+            newVm.SortMethod = vm.SortMethod;
 
             
            

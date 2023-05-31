@@ -9,6 +9,8 @@ namespace SlackOverload.Models.ViewModel
 
         public QuestionSortMethod? SortMethod { get; set; }
 
+        public string SortMethodName { get; set; }
+
         public enum QuestionSortMethod
         {
             [Display(Name="Earliest")]
