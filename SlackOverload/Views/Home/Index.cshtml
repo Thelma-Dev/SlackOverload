@@ -44,8 +44,6 @@
                     }
                 }
             </div>
-            
-
         </div>
     </form>
 </div>
@@ -100,8 +98,8 @@ else
             <tr>
                 <td>
                     <div class="icons">
-                        <a asp-action="UpVote" asp-route-id="@item.Id" asp-controller="Question" class="icon up-icon"><i class="fa-solid fa-caret-up"></i></a> 
-                        <a asp-action="Downvote" asp-route-id="@item.Id" asp-controller="Question" class=" icon down-icon"><i class="fa-solid fa-caret-down"></i></a>
+                        <a asp-action="UpVote" asp-route-id="@item.Id" asp-controller="Question" class="icon up-icon" title="UpVote Question"><i class="fa-solid fa-caret-up"></i></a> 
+                        <a asp-action="Downvote" asp-route-id="@item.Id" asp-controller="Question" class=" icon down-icon" title="DownVote Question"><i class="fa-solid fa-caret-down"></i></a>
                     </div>
                 </td>
                 <td>

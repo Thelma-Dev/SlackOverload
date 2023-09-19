@@ -8,6 +8,32 @@ html {
   }
 }
 
+.login-form-header, .register-form-header {
+    margin-top: 4rem;
+    display: grid;
+    place-items: center;
+}
+
+.login-form, .register-form {
+    display: grid;
+    place-items: center;
+}
+
+.button-style {
+    background-color: #363671;
+    color: #FFF;
+    transition: all 0.35s ease-in-out;
+}
+
+.sign-up-link a {
+    margin-left: 2px;
+}
+
+.button-style:hover {
+    color: #FFF;
+    background-color: #000058;
+}
+
 html {
   position: relative;
   min-height: 100%;

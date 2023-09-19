@@ -88,6 +88,7 @@ namespace SlackOverload.Controllers
                 .Include(q => q.QuestionTags)
                 .Include(q => q.ApplicationUser)
                 .Include(q => q.QuestionComments)
+                .ThenInclude(qc => qc.ApplicationUser)
                 .Include(q => q.QuestionTags)
                 .ThenInclude(qt => qt.Tag)
                 .FirstOrDefault(q => q.Id == id);

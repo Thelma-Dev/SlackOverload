@@ -63,6 +63,7 @@ namespace SlackOverload.Controllers
                 HashSet<Tags> AllTags = _context.Tags.ToHashSet();
 
                 List<string> QuestionTagsId = Request.Form["TagId"].ToList();
+                string htmlContent = Request.Form["Description"];
 
                 List<Tags> QuestionTags = new List<Tags>();
 
@@ -81,7 +82,7 @@ namespace SlackOverload.Controllers
                 newQuestion.ApplicationUser = user;
                 newQuestion.ApplicationUserId = user.Id;
                 newQuestion.Title = vm.Title; 
-                newQuestion.Description = vm.Description;
+                newQuestion.Description = htmlContent;
                 newQuestion.DatePosted = DateTime.Now;
                 
 

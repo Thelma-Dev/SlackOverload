@@ -10,7 +10,7 @@
     <p class="dateposted">Asked @Model.DatePosted</p>
     <hr />
     <div class="question-description">
-       <p>@Model.Description</p>
+        <p>@Html.Raw(Model.Description)</p>
     </div>
     <div class="tags">
         @foreach (QuestionTag qt in Model.QuestionTags)
@@ -47,8 +47,8 @@
         <div class="answer-template">
             <div class="mt-4 answer-block">
                 <div class="icons">
-                    <a asp-action="UpVote" asp-route-id="@a.Id" asp-controller="Answer" class="icon up-icon"><i class="fa-solid fa-caret-up"></i></a> 
-                    <a asp-action="Downvote" asp-route-id="@a.Id" asp-controller="Answer" class=" icon down-icon"><i class="fa-solid fa-caret-down"></i></a>
+                    <a asp-action="UpVote" asp-route-id="@a.Id" asp-controller="Answer" class="icon up-icon" title="UpVote Answer"><i class="fa-solid fa-caret-up"></i></a> 
+                    <a asp-action="Downvote" asp-route-id="@a.Id" asp-controller="Answer" class=" icon down-icon" title="DownVote Answer"><i class="fa-solid fa-caret-down"></i></a>
                     @if (ViewBag.CorrectAnswer == a.Id)
                     {
                        <p class="correct-icon"><i class="fa-solid fa-check"></i></p> 
@@ -88,6 +88,5 @@
     }
 </div>
 <div class="mt-4">
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to Questions</a>
 </div>
